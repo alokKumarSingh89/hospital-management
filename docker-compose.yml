@@ -6,9 +6,11 @@ services:
         volumes:
             - ./db:/var/lib/postgresql/data
         environment:
-        - POSTGRES_PASSWORD=alok
-        - POSTGRES_USER=alok
-        - POSTGRES_DB=hospital
+            - POSTGRES_PASSWORD=alok
+            - POSTGRES_USER=alok
+            - POSTGRES_DB=hospital
+        networks:
+            - hospital-network
     rabbitmq:
         image: "rabbitmq:3-management"
         ports:
