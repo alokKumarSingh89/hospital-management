@@ -1,0 +1,53 @@
+services:
+    user_db:
+        image: postgres:14-alpine
+        ports:
+            - 5432:5432
+        volumes:
+            - /db:/var/lib/postgresql/data
+        environment:
+        - POSTGRES_PASSWORD=alok
+        - POSTGRES_USER=alok
+        - POSTGRES_DB=hospital
+    rabbitmq:
+        image: "rabbitmq:3-management"
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        
+    api-gateway:
+        build: 
+            context: ./
+            dockerfile: ./apps/api-gateway/Dockerfile
+        ports:
+            - "3000:3000"
+        networks:
+            - hospital-network
+        depends_on:
+            - user-service
+            - rabbitmq
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        command: npm run start:dev api-gateway
+    user-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/users/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - user_db
+        command: npm run start:dev users
+networks:
+    hospital-network:
