@@ -51,5 +51,20 @@ services:
             - rabbitmq
             - user_db
         command: npm run start:dev users
+    auth-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/auth/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - user-service
+        command: npm run start:dev auth
 networks:
     hospital-network:

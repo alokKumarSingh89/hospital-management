@@ -10,8 +10,13 @@ export class UserController {
     return this.userService.list_all();
   }
 
-  @Post()
+  @Post('/register')
   async createUser(@Body() data) {
     return this.userService.createUser(data);
+  }
+
+  @Post('/login')
+  async login(@Body() data) {
+    return this.userService.login(data);
   }
 }

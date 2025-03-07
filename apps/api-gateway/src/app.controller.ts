@@ -9,6 +9,4 @@ export class AppController {
   async getHello() {
     return this.appService.getHello();
   }
-
-  
 }

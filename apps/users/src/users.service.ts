@@ -21,7 +21,7 @@ export class UsersService {
     return bcrypt.compare(password, user.password);
   }
 
-  async isEmailExit(email: string) {
+  async findUserByEmail(email: string) {
     return this.userRepo.findOne({
       where: {
         email,
@@ -29,8 +29,7 @@ export class UsersService {
     });
   }
   async createUser(newUser: CreateUserDTO) {
-    let user = await this.isEmailExit(newUser.email);
-    console.log(user);
+    let user = await this.findUserByEmail(newUser.email);
     if (user != null) {
       throw new RpcException({
         message: 'User Already Exists ',

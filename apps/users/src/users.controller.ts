@@ -28,4 +28,9 @@ export class UsersController {
     this.acknowledge(context);
     return this.usersService.list_all();
   }
+
+  @MessagePattern({ cmd: 'find_user_by_email' })
+  async findUserByEmail(email: string) {
+    return this.usersService.findUserByEmail(email);
+  }
 }
