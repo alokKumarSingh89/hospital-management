@@ -186,6 +186,21 @@ services:
             - rabbitmq
             - db
         command: npm run start:dev telemedicine
+    pharmacy-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/pharmacy/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev pharmacy
     
 networks:
     hospital-network:
