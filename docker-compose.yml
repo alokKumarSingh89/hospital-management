@@ -1,8 +1,8 @@
 services:
-    user_db:
+    db:
         image: postgres:14-alpine
         ports:
-            - 5432:5432
+            - "5432:5432"
         volumes:
             - ./db:/var/lib/postgresql/data
         environment:
@@ -49,7 +49,158 @@ services:
             - /usr/src/app/node_modules
         depends_on:
             - rabbitmq
-            - user_db
+            - db
         command: npm run start:dev users
+    auth-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/auth/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - user-service
+        command: npm run start:dev auth
+    doctor-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/doctor/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev doctor
+    inventory-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/inventory/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev inventory
+    patient-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/patient/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev patient
+    payment-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/payment/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev payment
+    laboratory-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/laboratory/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev laboratory
+    appointment-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/appointment/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev appointment
+    reporting-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/reporting/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev reporting
+    telemedicine-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/telemedicine/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev telemedicine
+    pharmacy-service:
+        build: 
+            context: ./
+            dockerfile: ./apps/pharmacy/Dockerfile
+        networks:
+            - hospital-network
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        depends_on:
+            - rabbitmq
+            - db
+        command: npm run start:dev pharmacy
+    
 networks:
     hospital-network:

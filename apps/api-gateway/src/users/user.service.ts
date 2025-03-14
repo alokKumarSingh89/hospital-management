@@ -9,12 +9,20 @@ import {
 @Injectable()
 export class UserService {
   private userClient: ClientProxy;
+  private authClient: ClientProxy;
   constructor(private configService: ConfigService) {
     this.userClient = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://user:password@rabbitmq:5672'],
+        urls: [configService.get<string>('RABBITMQ_URL')],
         queue: 'user_queue',
+      },
+    });
+    this.authClient = ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: [configService.get<string>('RABBITMQ_URL')],
+        queue: 'auth_queue',
       },
     });
   }
@@ -24,5 +32,9 @@ export class UserService {
 
   async createUser(data) {
     return this.userClient.send('create_user', data);
+  }
+
+  async login(data) {
+    return this.authClient.send('login', data);
   }
 }
