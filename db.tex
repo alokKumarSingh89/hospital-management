@@ -1,0 +1,150 @@
+Patient
+---------
+patient_id (PK)
+name
+dob
+gender
+contact_info
+address
+
+MedicalHistory
+--------------
+history_id (PK)
+patient_id (FK)
+diagnosis
+treatment
+date
+
+============
+Appointment
+-----------
+appointment_id (PK)
+patient_id (FK)
+doctor_id (FK)
+date
+time
+status
+
+Slot
+----
+slot_id (PK)
+doctor_id (FK)
+date
+start_time
+end_time
+is_available
+
+======
+
+Doctor
+------
+doctor_id (PK)
+name
+specialization
+contact_info
+availability
+
+Schedule
+--------
+schedule_id (PK)
+doctor_id (FK)
+day
+start_time
+end_time
+
+========
+
+Bill
+----
+bill_id (PK)
+patient_id (FK)
+appointment_id (FK)
+total_amount
+status
+
+Payment
+-------
+payment_id (PK)
+bill_id (FK)
+amount
+payment_method
+date
+=====
+
+Drug
+----
+drug_id (PK)
+name
+manufacturer
+price
+quantity
+
+Prescription
+------------
+prescription_id (PK)
+patient_id (FK)
+doctor_id (FK)
+drug_id (FK)
+dosage
+date
+
+===
+LabTest
+-------
+test_id (PK)
+name
+description
+cost
+
+TestResult
+----------
+result_id (PK)
+patient_id (FK)
+test_id (FK)
+result
+date
+=====
+Equipment
+---------
+equipment_id (PK)
+name
+quantity
+location
+
+Supply
+------
+supply_id (PK)
+name
+quantity
+expiry_date
+======
+Session
+-------
+session_id (PK)
+patient_id (FK)
+doctor_id (FK)
+start_time
+end_time
+notes
+
+Recording
+---------
+recording_id (PK)
+session_id (FK)
+file_path
+duration
+=====
+Report
+------
+report_id (PK)
+type
+generated_by
+date
+content
+
+Analytics
+---------
+analytics_id (PK)
+metric
+value
+date

@@ -15,7 +15,7 @@ import { User } from './models/user.entity';
       useFactory: async () => {
         const dataSource = new DataSource({
           type: 'postgres',
-          host: 'user_db',
+          host: 'db',
           port: 5432,
           username: 'alok',
           password: 'alok',

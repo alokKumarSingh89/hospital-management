@@ -72,6 +72,51 @@
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
+    },
+    "pharmacy": {
+      "type": "application",
+      "root": "apps/pharmacy",
+      "entryFile": "main",
+      "sourceRoot": "apps/pharmacy/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/pharmacy/tsconfig.app.json"
+      }
+    },
+    "laboratory": {
+      "type": "application",
+      "root": "apps/laboratory",
+      "entryFile": "main",
+      "sourceRoot": "apps/laboratory/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/laboratory/tsconfig.app.json"
+      }
+    },
+    "inventory": {
+      "type": "application",
+      "root": "apps/inventory",
+      "entryFile": "main",
+      "sourceRoot": "apps/inventory/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/inventory/tsconfig.app.json"
+      }
+    },
+    "telemedicine": {
+      "type": "application",
+      "root": "apps/telemedicine",
+      "entryFile": "main",
+      "sourceRoot": "apps/telemedicine/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/telemedicine/tsconfig.app.json"
+      }
+    },
+    "reporting": {
+      "type": "application",
+      "root": "apps/reporting",
+      "entryFile": "main",
+      "sourceRoot": "apps/reporting/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/reporting/tsconfig.app.json"
+      }
     }
   }
 }

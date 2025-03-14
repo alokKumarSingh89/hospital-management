@@ -1,14 +1,20 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, UseGuards } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Controller('doctors')
+@UseGuards(JwtAuthGuard)
 export class DoctorController {
+  private logger = new Logger(DoctorController.name);
   constructor(private readonly docService: DoctorService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  async getHello() {
-    return this.docService.getHello();
+  async fetchAllDoctor() {
+    return this.docService.fetchAllDoctor();
+  }
+
+  @Post()
+  async createDoctor(@Body() data) {
+    return this.docService.createDoctor(data);
   }
 }
